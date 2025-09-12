@@ -30,6 +30,7 @@ const App = () => {
 
   return (
     <>
+      <h1>give feedback</h1>
       <Button onClick={handleGoodCount} text={"good"}/>
       <Button onClick={handleNeutralCount} text={"neutral"}/>
       <Button onClick={handleBadCount} text={"bad"}/>
