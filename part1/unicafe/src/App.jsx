@@ -13,6 +13,10 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
+  const handleGoodCount = () => setGood(good + 1)
+  const handleNeutralCount = () => setNeutral(neutral + 1)
+  const handleBadCount = () => setBad(bad + 1)
+
   return (
     <>
       <Button onClick={handleGoodCount} text={"good"}/>
