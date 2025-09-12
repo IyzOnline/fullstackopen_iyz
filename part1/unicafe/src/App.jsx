@@ -1,9 +1,11 @@
 import { useState } from 'react'
 
 const Button = ({ onClick, text }) => {
-  <button onClick={onClick}>
-    {text}
-  </button>
+  return (
+    <button onClick={onClick}>
+      {text}
+    </button>
+  )
 }
 
 const App = () => {
@@ -12,9 +14,11 @@ const App = () => {
   const [bad, setBad] = useState(0)
 
   return (
-    <div>
-      
-    </div>
+    <>
+      <Button onClick={handleGoodCount} text={"good"}/>
+      <Button onClick={handleNeutralCount} text={"neutral"}/>
+      <Button onClick={handleBadCount} text={"bad"}/>
+    </>
   )
 }
 
