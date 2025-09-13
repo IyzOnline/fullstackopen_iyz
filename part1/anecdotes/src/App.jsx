@@ -4,6 +4,7 @@ const Button = ({ EventHandler }) => <button onClick={EventHandler}>next anecdot
 
 const App = () => {
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(new Array(7).fill(0))
 
   const anecdotes = [
     'If it hurts, do it more often.',
