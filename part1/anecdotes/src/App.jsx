@@ -1,6 +1,10 @@
 import { useState } from 'react'
 
+const Button = ({ EventHandler }) => <button onClick={EventHandler}>next anecdote</button>
+
 const App = () => {
+  const [selected, setSelected] = useState(0)
+
   const anecdotes = [
     'If it hurts, do it more often.',
     'Adding manpower to a late software project makes it later!',
@@ -11,12 +15,15 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
     'The only way to go fast, is to go well.'
   ]
-   
-  const [selected, setSelected] = useState(0)
+
+  const EventHandler = () => {
+    setSelected(Math.floor(Math.random() * anecdotes.length))
+  }
 
   return (
     <div>
       {anecdotes[selected]}
+      <Button EventHandler={EventHandler}/>
     </div>
   )
 }
