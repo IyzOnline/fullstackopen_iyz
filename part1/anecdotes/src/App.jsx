@@ -17,7 +17,8 @@ const App = () => {
   ]
 
   const EventHandler = () => {
-    setSelected(Math.floor(Math.random() * anecdotes.length))
+    const randomNum = Math.floor(Math.random() * anecdotes.length)
+    setSelected(randomNum)
   }
 
   return (
