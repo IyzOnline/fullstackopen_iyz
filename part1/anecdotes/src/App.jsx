@@ -5,6 +5,7 @@ const Button = ({ eventHandler, text }) => <button onClick={eventHandler}>{text}
 const App = () => {
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState(new Array(8).fill(0))
+  const [maxAnecdote, setMaxAnecdote] = useState({ index: 0, votes: 0 })
 
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -26,21 +27,10 @@ const App = () => {
     const newArr = [...votes]
     newArr[selected] += 1
     setVotes(newArr)
-  }
-
-  const findMostVoted = () => {
-    let maxIndex = 0;
-    let maxVotes = votes[0];
-    for (let i = 1; i < anecdotes.length; i++) {
-      if (maxVotes < votes[i]) {
-        maxIndex = i;
-        maxVotes = votes[i];
-      }
+    if (newArr[selected] > maxAnecdote.votes) {
+      setMaxAnecdote({ index: selected, votes: newArr[selected] })
     }
-    return maxIndex;
   }
-
-  const mostVoted = findMostVoted()
 
   return (
     <div>
@@ -50,8 +40,8 @@ const App = () => {
       <Button eventHandler={handleVote} text={"vote"}/>
       <Button eventHandler={handleSelect} text={"next anecdote"}/>
       <h1>Anecdote with most votes</h1>
-      <p>{anecdotes[mostVoted]}</p>
-      <p>has {votes[mostVoted]} votes</p>
+      <p>{anecdotes[maxAnecdote.index]}</p>
+      <p>has {maxAnecdote.votes} votes</p>
     </div>
   )
 }
