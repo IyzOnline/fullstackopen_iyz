@@ -19,6 +19,7 @@ const StatisticLine = ({ text, value }) => {
 
 const Statistics = ({ values }) => {
   const total = values.reduce((acc, cur) => acc + cur, 0)
+  const average = (values[0] - values[2]) / total
   return (
       <div>
         <h1>Statistics</h1>
@@ -26,14 +27,16 @@ const Statistics = ({ values }) => {
           total === 0 ? (
             <p>No feedback</p>
           ) : (
-            <>
-              <StatisticLine text={"good"} value={values[0]}/>
-              <StatisticLine text={"neutral"} value={values[1]}/>
-              <StatisticLine text={"bad"} value={values[2]}/>
-              <StatisticLine text={"all"} value={total}/>
-              <StatisticLine text={"average"} value={total / values.length}/>
-              <StatisticLine text={"positive"} value={values[0] / (total ? total : 1)}/>
-            </>
+            <table>
+              <tbody>
+                <StatisticLine text={"good"} value={values[0]}/>
+                <StatisticLine text={"neutral"} value={values[1]}/>
+                <StatisticLine text={"bad"} value={values[2]}/>
+                <StatisticLine text={"all"} value={total}/>
+                <StatisticLine text={"average"} value={average}/>
+                <StatisticLine text={"positive"} value={values[0] / (total ? total : 1)}/>
+              </tbody>
+            </table>
           )
         }
       </div>
