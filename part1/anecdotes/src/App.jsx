@@ -30,10 +30,12 @@ const App = () => {
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
       <p>has {votes[selected]} votes</p>
       <Button eventHandler={handleVote} text={"vote"}/>
       <Button eventHandler={handleSelect} text={"next anecdote"}/>
+      <h1>Anecdote with most votes</h1>
     </div>
   )
 }
