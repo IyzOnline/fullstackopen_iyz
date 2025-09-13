@@ -28,6 +28,7 @@ const App = () => {
   return (
     <div>
       <p>{anecdotes[selected]}</p>
+      <p>has {votes[selected]} votes</p>
       <Button EventHandler={EventHandler}/>
     </div>
   )
