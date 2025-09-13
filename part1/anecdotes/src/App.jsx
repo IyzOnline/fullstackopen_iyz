@@ -28,6 +28,20 @@ const App = () => {
     setVotes(newArr)
   }
 
+  const findMostVoted = () => {
+    let maxIndex = 0;
+    let maxVotes = votes[0];
+    for (let i = 1; i < anecdotes.length; i++) {
+      if (maxVotes < votes[i]) {
+        maxIndex = i;
+        maxVotes = votes[i];
+      }
+    }
+    return maxIndex;
+  }
+
+  const mostVoted = findMostVoted()
+
   return (
     <div>
       <h1>Anecdote of the day</h1>
@@ -36,6 +50,8 @@ const App = () => {
       <Button eventHandler={handleVote} text={"vote"}/>
       <Button eventHandler={handleSelect} text={"next anecdote"}/>
       <h1>Anecdote with most votes</h1>
+      <p>{anecdotes[mostVoted]}</p>
+      <p>has {votes[mostVoted]} votes</p>
     </div>
   )
 }
