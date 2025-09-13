@@ -8,6 +8,8 @@ const Button = ({ onClick, text }) => {
   )
 }
 
+const StatisticLine = ({ text, value }) => <p>{text} {value}</p>
+
 const Statistics = ({ values }) => {
   const total = values.reduce((acc, cur) => acc + cur, 0)
   return (
