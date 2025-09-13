@@ -4,7 +4,7 @@ const Button = ({ eventHandler, text }) => <button onClick={eventHandler}>{text}
 
 const App = () => {
   const [selected, setSelected] = useState(0)
-  const [votes, setVotes] = useState(new Array(7).fill(0))
+  const [votes, setVotes] = useState(new Array(8).fill(0))
 
   const anecdotes = [
     'If it hurts, do it more often.',
