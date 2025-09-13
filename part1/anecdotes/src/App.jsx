@@ -20,6 +20,9 @@ const App = () => {
   const EventHandler = () => {
     const randomNum = Math.floor(Math.random() * anecdotes.length)
     setSelected(randomNum)
+    const newArr = [...votes]
+    newArr[randomNum] += 1;
+    setVotes(newArr)
   }
 
   return (
