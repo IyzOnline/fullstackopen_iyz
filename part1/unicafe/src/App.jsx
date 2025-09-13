@@ -20,12 +20,12 @@ const Statistics = ({ values }) => {
             <p>No feedback</p>
           ) : (
             <>
-              <p>good {values[0]}</p>
-              <p>neutral {values[1]}</p>
-              <p>bad {values[2]}</p>
-              <p>all {total}</p>
-              <p>average {total / values.length}</p>
-              <p>positive {values[0] / (total ? total : 1)} %</p>
+              <StatisticLine text={"good"} value={values[0]}/>
+              <StatisticLine text={"neutral"} value={values[1]}/>
+              <StatisticLine text={"bad"} value={values[2]}/>
+              <StatisticLine text={"all"} value={total}/>
+              <StatisticLine text={"average"} value={total / values.length}/>
+              <StatisticLine text={"positive"} value={values[0] / (total ? total : 1)}/>
             </>
           )
         }
