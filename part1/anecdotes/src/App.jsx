@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <div>
-      {anecdotes[selected]}
+      <p>{anecdotes[selected]}</p>
       <Button EventHandler={EventHandler}/>
     </div>
   )
