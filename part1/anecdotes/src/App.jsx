@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const Button = ({ eventHandler }) => <button onClick={eventHandler}>next anecdote</button>
+const Button = ({ eventHandler }) => <button onClick={eventHandler}>{text}</button>
 
 const App = () => {
   const [selected, setSelected] = useState(0)
@@ -22,7 +22,7 @@ const App = () => {
 
   const handleVote = () => {
     const newArr = [...votes]
-    newArr[randomNum] += 1;
+    newArr[randomNum] += 1
     setVotes(newArr)
   }
 
@@ -30,7 +30,8 @@ const App = () => {
     <div>
       <p>{anecdotes[selected]}</p>
       <p>has {votes[selected]} votes</p>
-      <Button EventHandler={EventHandler}/>
+      <Button eventHandler={handleVote} text={"vote"}/>
+      <Button eventHandler={handleSelect} text={"next anecdote"}/>
     </div>
   )
 }
