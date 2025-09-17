@@ -1,7 +1,7 @@
 const Course = ({ course }) => {
   return (
     <div>
-      <h1>{course.name}</h1>
+      <h2>{course.name}</h2>
       {course.parts.map((part) => (
         <p key={part.id}>
           {part.name} {part.exercises}
@@ -60,6 +60,7 @@ const App = () => {
 
   return (
     <div>
+      <h1>Web development curriculum</h1>
       {courses.map(courseInstance => <Course key={courseInstance.id} course={courseInstance}/>)}
     </div>
   )
