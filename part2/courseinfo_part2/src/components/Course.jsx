@@ -12,4 +12,4 @@ const Course = ({ course }) => {
   )
 }
 
-export default Courses
+export default Course
