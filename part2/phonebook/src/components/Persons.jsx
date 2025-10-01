@@ -1,9 +1,21 @@
-const Persons = ({ persons, filterName }) => {
+const Persons = ({ deletePerson, persons, setPersons, filterName }) => {
+    const deleteHandler = person => {
+        if (window.confirm(`Do you wish to delete "${person.name}" from your contacts?`)) {
+            deletePerson(person.id)
+                .then(removedPerson => {
+                    const updatedPersons = persons.filter(person => person.id !== removedPerson.id)
+                    setPersons(updatedPersons)
+                })
+        } else {
+            window.alert(`${person.name} was not deleted from your contacts.`)
+        }
+    }
+
     return (
         <>
             {persons.map(person => {
                 if (person.name.toLowerCase().includes(filterName.toLowerCase())) {
-                    return <p key={person.id}>{person.name} {person.number}</p>
+                    return <p key={person.id}>{person.name} {person.number} <button onClick={() => deleteHandler(person)}>delete</button></p>
                 }
             })}
         </>
