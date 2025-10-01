@@ -6,8 +6,6 @@ const Persons = ({ deletePerson, persons, setPersons, filterName }) => {
                     const updatedPersons = persons.filter(person => person.id !== removedPerson.id)
                     setPersons(updatedPersons)
                 })
-        } else {
-            window.alert(`${person.name} was not deleted from your contacts.`)
         }
     }
 

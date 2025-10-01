@@ -3,11 +3,11 @@ const PersonForm = ({ createPerson, updatePerson, persons, setPersons, newName, 
         event.preventDefault()
 
         const newPerson = {
-            name: newName,
-            number: newNumber
+            name: newName.trim(),
+            number: newNumber.trim()
         }
 
-        const personExists = persons.find(person => person.name === newName)
+        const personExists = persons.find(person => person.name === newName.trim())
 
         if (personExists) {
             if (window.confirm(`${personExists.name} is already added to the phonebook, replace the old number with a new one?`)) {
@@ -19,7 +19,7 @@ const PersonForm = ({ createPerson, updatePerson, persons, setPersons, newName, 
                     })
                 return
             }
-            
+
             return
         }
 
