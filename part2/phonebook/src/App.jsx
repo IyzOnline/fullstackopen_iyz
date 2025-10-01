@@ -24,7 +24,7 @@ const App = () => {
 
             <h2>add a new</h2>
 
-            <PersonForm createPerson={personService.createPerson} persons={persons} setPersons={setPersons} newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber}/>
+            <PersonForm createPerson={personService.createPerson} updatePerson={personService.updatePerson} persons={persons} setPersons={setPersons} newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber}/>
 
             <h2>Numbers</h2>
 
