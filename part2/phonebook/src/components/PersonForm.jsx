@@ -8,8 +8,7 @@ const PersonForm = ({ createPerson, persons, setPersons, newName, setNewName, ne
 
         const newPerson = {
             name: newName,
-            number: newNumber,
-            id: persons.length + 1
+            number: newNumber
         }
 
         createPerson(newPerson)
