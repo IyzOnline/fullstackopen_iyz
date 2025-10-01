@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons'
-import axios from 'axios';
+import personService from './services/persons'
 
 const App = () => {
     const [persons, setPersons] = useState([])
@@ -11,9 +11,9 @@ const App = () => {
     const [filterName, setFilterName] = useState('')
 
     useEffect(() => {
-       axios
-        .get('http://localhost:3001/persons')
-        .then(response => setPersons(response.data))
+       personService
+        .getPersons()
+        .then(response => setPersons(response))
     }, [])
 
     return(
@@ -24,7 +24,7 @@ const App = () => {
 
             <h2>add a new</h2>
 
-            <PersonForm persons={persons} setPersons={setPersons} newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber}/>
+            <PersonForm createPerson={personService.createPerson} persons={persons} setPersons={setPersons} newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber}/>
 
             <h2>Numbers</h2>
 

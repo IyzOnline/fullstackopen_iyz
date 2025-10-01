@@ -1,4 +1,4 @@
-const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNewNumber }) => {
+const PersonForm = ({ createPerson, persons, setPersons, newName, setNewName, newNumber, setNewNumber }) => {
     const handleSubmit = (event) => {
         event.preventDefault()
         if (persons.find(person => person.name === newName)) {
@@ -12,9 +12,12 @@ const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNe
             id: persons.length + 1
         }
 
-        setPersons(persons.concat(newPerson))
-        setNewName('')
-        setNewNumber('')
+        createPerson(newPerson)
+            .then(addedPerson => {
+                setPersons(persons.concat(addedPerson))
+                setNewName('')
+                setNewNumber('')
+            })
     }
     
     return (
