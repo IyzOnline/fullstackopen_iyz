@@ -1,4 +1,4 @@
-const PersonForm = ({ createPerson, updatePerson, persons, setPersons, newName, setNewName, newNumber, setNewNumber }) => {
+const PersonForm = ({ setMessage, createPerson, updatePerson, persons, setPersons, newName, setNewName, newNumber, setNewNumber }) => {
     const handleSubmit = (event) => {
         event.preventDefault()
 
@@ -16,7 +16,27 @@ const PersonForm = ({ createPerson, updatePerson, persons, setPersons, newName, 
                         setPersons(persons.map(person => person.name === editedPerson.name ? editedPerson : person))
                         setNewName('')
                         setNewNumber('')
+                        setMessage({
+                            message: `Changed ${editedPerson.name}'s number to ${editedPerson.number}`,
+                            messageType: "success"
+                        })
+                        setInterval(() => {
+                            setMessage(null)
+                        }, 5000)
                     })
+                    .catch(() => {
+                        setMessage({
+                            message: `Information of ${personExists.name} has already been removed from server`,
+                            messageType: "error"
+                        })
+                        setInterval(() => {
+                            setMessage(null)
+                        }, 5000)
+                        setPersons(persons.map(person => person.name === editedPerson.name ? editedPerson : person))
+                        setNewName('')
+                        setNewNumber('')
+                    })
+
                 return
             }
 
@@ -28,6 +48,13 @@ const PersonForm = ({ createPerson, updatePerson, persons, setPersons, newName, 
                 setPersons(persons.concat(addedPerson))
                 setNewName('')
                 setNewNumber('')
+                setMessage({
+                    message: `Added ${addedPerson.name}`,
+                    messageType: "success"
+                })
+                setInterval(() => {
+                    setMessage(null)
+                }, 5000)
             })
     }
     
