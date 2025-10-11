@@ -46,7 +46,7 @@ function App() {
 
   const displayResults = () => {
     if (countryResults) {
-      if(Array.isArray(countryResults)){
+      if (Array.isArray(countryResults)) {
           return countryResults.map(country => <p key={country.key}>{country.name}</p>)
       }
       else {
