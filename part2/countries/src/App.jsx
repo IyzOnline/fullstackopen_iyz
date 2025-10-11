@@ -35,6 +35,10 @@ function App() {
           {Object.values(specificCountry.languages).map((language, index) => <li key={index}>{language}</li>)}
         </ul>
         <img src={specificCountry.flagPngSource} />
+        <h2>Weather in {specificCountry.capital}</h2>
+        <p>Temperature {specificCountry.temperature} Celcius</p>
+        <img src={specificCountry.weatherIcon} />
+        <p>Wind {specificCountry.windSpeed} m/s</p>
       </>
     )
   }
