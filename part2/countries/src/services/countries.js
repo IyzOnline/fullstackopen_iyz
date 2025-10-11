@@ -8,7 +8,7 @@ const getAllCountryNames = () => {
             .then(data => data.map(country => {
                 return { 
                     name: country.name.common, 
-                    key: country.ccn3
+                    key: country.ccn3 ? country.ccn3 : country.cca3 
                 }
             }
             ))
