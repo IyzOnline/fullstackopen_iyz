@@ -39,6 +39,7 @@ function App() {
           value={inputCountry ? inputCountry : ""}
           onChange={handleChange}
         />
+        { countryResults ? countryResults.map(country => <p key={country.key}>{country.name}</p>) : null }
       </>
     )
   }
