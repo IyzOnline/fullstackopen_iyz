@@ -21,7 +21,7 @@ function App() {
     setInputCountry(event.target.value)
     const filterResult = countryNames.filter(country => country.name.toLowerCase().includes(event.target.value.toLowerCase().trim()))
     if (filterResult.length > 10) {
-      setCountryResults(["Too many matches, specify another filter"])
+      setCountryResults("Too many matches, specify another filter")
     } 
     else if (filterResult.length > 1) {
       setCountryResults(filterResult)
@@ -39,7 +39,9 @@ function App() {
           value={inputCountry ? inputCountry : ""}
           onChange={handleChange}
         />
-        { countryResults ? countryResults.map(country => <p key={country.key}>{country.name}</p>) : null }
+        { countryResults 
+          ? Array.isArray(countryResults) ? countryResults.map(country => <p key={country.key}>{country.name}</p>) : <p>{countryResults}</p> 
+          : null }
       </>
     )
   }
