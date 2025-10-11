@@ -2,21 +2,18 @@ import { useEffect, useState } from 'react'
 import countryServices from './services/countries'
 
 function App() {
-  const [countryNames, setCountryNames] = useState(null);
+  const [countryNames, setCountryNames] = useState(null)
 
   useEffect(() => {
-    countryServices
+    if (countryNames === null) {
+      countryServices
       .getAllCountryNames()
-      .then(resultingArray => setCountryNames(resultingArray))
+      .then(resultingArray => {
+        console.log(resultingArray)
+        setCountryNames(resultingArray)
+      })
+    }
   }, [])
-  
-  if (countryNames) {
-    return (
-      <ul>
-        {countryNames.map(country => <h1>{country}</h1>)}
-      </ul>
-    )
-  }
 
   return (
     <>    
