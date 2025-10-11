@@ -15,11 +15,20 @@ function App() {
         setCountryNames(resultingArray)
       })
     }
-
   }, [])
 
   const handleChange = (event) => {
-
+    setInputCountry(event.target.value)
+    const filterResult = countryNames.filter(country => country.name.toLowerCase().includes(event.target.value.toLowerCase().trim()))
+    if (filterResult.length > 10) {
+      setCountryResults(["Too many matches, specify another filter"])
+    } 
+    else if (filterResult.length > 1) {
+      setCountryResults(filterResult)
+    }
+    else if (filterResult.length === 1) {
+      setCountryResults([filterResult[0]])
+    }
   }
   
   if (countryNames) {
