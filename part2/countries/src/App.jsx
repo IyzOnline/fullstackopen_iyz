@@ -12,7 +12,6 @@ function App() {
       countryServices
       .getAllCountryNames()
       .then(resultingArray => {
-        console.log(resultingArray)
         setCountryNames(resultingArray)
       })
     }
@@ -73,7 +72,6 @@ function App() {
   const displaySpecificCountry = () => {
     return (
       <>
-        {console.log("is this working")}
         <h1>{specificCountry.name}</h1>
         <p>Capital {specificCountry.capital}</p>
         <p>Area {specificCountry.area}</p>
