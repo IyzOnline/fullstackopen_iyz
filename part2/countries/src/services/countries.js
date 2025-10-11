@@ -22,8 +22,8 @@ const getCountryData = (countryName) => {
             return {
                 name: country.name.common, //string
                 capital: country.capital, //array
-                area: area, //number
-                languages, //object
+                area: country.area,
+                languages: country.languages, //object
                 flagPngSource: country.flags.png, //http source
             }
         })
