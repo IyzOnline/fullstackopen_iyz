@@ -24,6 +24,21 @@ function App() {
     }
   }, [countryResults])
 
+  const displaySpecificCountry = () => {
+    return (
+      <>
+        <h1>{specificCountry.name}</h1>
+        <p>Capital {specificCountry.capital}</p>
+        <p>Area {specificCountry.area}</p>
+        <h2>Languages</h2>
+        <ul> 
+          {Object.values(specificCountry.languages).map((language, index) => <li key={index}>{language}</li>)}
+        </ul>
+        <img src={specificCountry.flagPngSource} />
+      </>
+    )
+  }
+
   const filterResults = (inputFilter) => {
     let filterResult = countryNames.filter(country => country.name.toLowerCase().includes(inputFilter))
     if (filterResult.length > 10) {
@@ -47,7 +62,7 @@ function App() {
   const displayResults = () => {
     if (countryResults) {
       if (Array.isArray(countryResults)) {
-          return countryResults.map(country => <p key={country.key}>{country.name}</p>)
+        return countryResults.map(country => <p key={country.key}>{country.name} <button onClick={() => setCountryResults([country])}>Show</button></p>)
       }
       else {
         return <p>{countryResults}</p> 
@@ -67,21 +82,6 @@ function App() {
     }
 
     filterResults(lowerCaseTrimmedFilter)
-  }
-
-  const displaySpecificCountry = () => {
-    return (
-      <>
-        <h1>{specificCountry.name}</h1>
-        <p>Capital {specificCountry.capital}</p>
-        <p>Area {specificCountry.area}</p>
-        <h2>Languages</h2>
-        <ul> 
-          {Object.values(specificCountry.languages).map((language, index) => <li key={index}>{language}</li>)}
-        </ul>
-        <img src={specificCountry.flagPngSource} />
-      </>
-    )
   }
   
   if (countryNames) {
