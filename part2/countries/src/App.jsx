@@ -18,6 +18,22 @@ function App() {
 
   }, [])
 
+  const handleChange = (event) => {
+
+  }
+  
+  if (countryNames) {
+    return (
+      <>
+        <p>find countries</p>
+        <input 
+          value={inputCountry ? inputCountry : ""}
+          onChange={handleChange}
+        />
+      </>
+    )
+  }
+
   return (
     <>    
     </>
