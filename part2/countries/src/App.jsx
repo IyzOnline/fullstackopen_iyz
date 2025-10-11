@@ -3,6 +3,8 @@ import countryServices from './services/countries'
 
 function App() {
   const [countryNames, setCountryNames] = useState(null)
+  const [inputCountry, setInputCountry] = useState(null)
+  const [countryResults, setCountryResults] = useState(null)
 
   useEffect(() => {
     if (countryNames === null) {
@@ -13,6 +15,7 @@ function App() {
         setCountryNames(resultingArray)
       })
     }
+
   }, [])
 
   return (
