@@ -19,7 +19,13 @@ function App() {
 
   const handleChange = (event) => {
     setInputCountry(event.target.value)
-    const filterResult = countryNames.filter(country => country.name.toLowerCase().includes(event.target.value.toLowerCase().trim()))
+    const lowerCaseTrimmedFilter = event.target.value.toLowerCase().trim()
+    if (!lowerCaseTrimmedFilter) {
+      setCountryResults(null)
+      return
+    }
+
+    const filterResult = countryNames.filter(country => country.name.toLowerCase().includes(lowerCaseTrimmedFilter))
     if (filterResult.length > 10) {
       setCountryResults("Too many matches, specify another filter")
     } 
