@@ -61,9 +61,15 @@ const generateID = () => {
 app.post('/api/persons', (request, response) => {
   const newPersonDetails = request.body
 
-  if (!newPersonDetails) {
+  const personExists = persons.find(person => person.name === newPersonDetails.name)
+
+  if (!newPersonDetails.name || !newPersonDetails.number) {
     return response.status(400).json({
       error: 'content missing'
+    })
+  } else if (personExists) {
+    return response.status(409).json({
+      error: 'This name is already in use.'
     })
   }
 
