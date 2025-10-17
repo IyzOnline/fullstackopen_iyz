@@ -26,7 +26,23 @@ let persons =
 ]
 
 app.get('/api/persons', (request, response) => {
-    response.json(persons)
+  response.json(persons)
+})
+
+app.get('/info', (request, response) => {
+  const firstLine = `<p>Phonebook has info for ${persons.length} people</p>`
+  const presentDate = new Date()
+  const secondLine = `<p>${presentDate}</p>`
+  response.send(firstLine + secondLine)
+})
+
+app.get('/api/persons/:id', (request, response) => {
+  const person = persons.find(person => person.id === request.params.id)
+  if (person) {
+    response.json(person)
+  } else {
+    response.status(404).end()
+  }
 })
 
 const PORT = 3001
