@@ -48,8 +48,33 @@ app.get('/api/persons/:id', (request, response) => {
 app.delete('/api/persons/:id', (request, response) => {
   const newPersonsList = persons.filter(person => person.id !== request.params.id)
   persons = newPersonsList
-  
+
   response.status(204).end()
+})
+
+app.use(express.json())
+
+const generateID = () => {
+  return Math.floor(Math.random() * 1000000)
+}
+
+app.post('/api/persons', (request, response) => {
+  const newPersonDetails = request.body
+
+  if (!newPersonDetails) {
+    return response.status(400).json({
+      error: 'content missing'
+    })
+  }
+
+  const newPerson = {
+    id: String(generateID()),
+    ...newPersonDetails,
+  }
+
+  persons = persons.concat(newPerson)
+
+  response.json(newPerson)
 })
 
 const PORT = 3001
