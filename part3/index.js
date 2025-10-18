@@ -26,8 +26,10 @@ let persons =
     }
 ]
 
-app.use(morgan('tiny'))
+morgan.token('body', (req) => JSON.stringify(req.body))
 
+app.use(morgan(':method :url :status : res[content-length] - :response-time ms :body'))
+  
 app.get('/api/persons', (request, response) => {
   response.json(persons)
 })
@@ -55,11 +57,11 @@ app.delete('/api/persons/:id', (request, response) => {
   response.status(204).end()
 })
 
-app.use(express.json())
-
 const generateID = () => {
   return Math.floor(Math.random() * 1000000)
 }
+
+app.use(express.json())
 
 app.post('/api/persons', (request, response) => {
   const newPersonDetails = request.body
