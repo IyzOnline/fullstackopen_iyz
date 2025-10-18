@@ -26,9 +26,20 @@ let persons =
     }
 ]
 
-morgan.token('body', (req) => JSON.stringify(req.body))
+app.use(express.json())
 
-app.use(morgan(':method :url :status : res[content-length] - :response-time ms :body'))
+morgan.token('body', (request) => JSON.stringify(request.body))
+
+const postMorganHandler = morgan(':method :url :status : res[content-length] - :response-time ms :body')
+const defaultMorganHandler = morgan(':method :url :status : res[content-length] - :response-time ms')
+
+app.use((request, response, next) => {
+  if (request.method === "POST") {
+    postMorganHandler(request, response, next)
+  } else {
+    defaultMorganHandler(request, response, next)
+  }
+})
   
 app.get('/api/persons', (request, response) => {
   response.json(persons)
@@ -60,8 +71,6 @@ app.delete('/api/persons/:id', (request, response) => {
 const generateID = () => {
   return Math.floor(Math.random() * 1000000)
 }
-
-app.use(express.json())
 
 app.post('/api/persons', (request, response) => {
   const newPersonDetails = request.body
