@@ -90,26 +90,35 @@ const generateID = () => {
 app.post('/api/persons', (request, response) => {
   const newPersonDetails = request.body
 
-  const personExists = persons.find(person => person.name === newPersonDetails.name)
-
   if (!newPersonDetails.name || !newPersonDetails.number) {
     return response.status(400).json({
       error: 'content missing'
     })
-  } else if (personExists) {
-    return response.status(409).json({
-      error: 'This name is already in use.'
+  }
+
+  Person
+    .findOne({ name: newPersonDetails.name })
+    .then(person => {
+      if (person) {
+        return response.status(409).json({
+          error: 'This name is already in use.'
+        })
+      } else {
+        const newPerson = new Person({
+          name: newPersonDetails.name,
+          number: newPersonDetails.number,
+        })
+
+        newPerson.save().then(savedPerson => {
+          console.log(savedPerson)
+          response.status(200).end()
+        })
+      }
     })
-  }
-
-  const newPerson = {
-    id: String(generateID()),
-    ...newPersonDetails,
-  }
-
-  persons = persons.concat(newPerson)
-
-  response.json(newPerson)
+    .catch(error => {
+      console.log("Something went wrong: ", error.message)
+      response.status(500).end()
+    })
 })
 
 const PORT = 3001
