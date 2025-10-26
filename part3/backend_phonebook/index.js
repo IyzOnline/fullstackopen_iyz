@@ -1,5 +1,8 @@
+require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
+const Person = require('./models/person')
+
 const app = express()
 
 let persons = 
@@ -43,7 +46,17 @@ app.use((request, response, next) => {
 })
   
 app.get('/api/persons', (request, response) => {
-  response.json(persons)
+  Person.find({})
+    .then(persons => {
+      if (!persons) {
+        response.status(404).end()
+      } 
+      response.json(persons)
+    })
+    .catch(error => {
+      console.log('Failed to obtain data from database: ', error.message)
+      response.status(500).end()
+    })
 })
 
 app.get('/info', (request, response) => {
