@@ -14,7 +14,11 @@ const deletePerson = id => {
 }
 
 const updatePerson = (id, editedPerson) => {
-    return axios.put(`${baseURL}/${id}`, editedPerson).then(response => response.data)
+    return axios.put(`${baseURL}/${id}`, editedPerson)
+        .then(response => {
+            console.log(response)
+            return response.data
+        })
 }
 
 export default { getPersons, createPerson, deletePerson, updatePerson }

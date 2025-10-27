@@ -129,7 +129,7 @@ app.put('/api/persons/:id', (request, response, next) => {
     )
     .then(personFound => {
       if (personFound) {
-        response.status(204).json(personFound)
+        response.status(200).json(personFound)
       } else {
         response.status(404).json({ error: 'Person not found' })
       }
