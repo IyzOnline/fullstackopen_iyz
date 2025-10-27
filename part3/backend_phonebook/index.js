@@ -75,7 +75,7 @@ app.get('/api/persons/:id', (request, response) => {
   }
 })
 
-app.delete('/api/persons/:id', (request, response) => {
+app.delete('/api/persons/:id', (request, response, next) => {
   const personID = request.params.id
   Person.findOneAndDelete({ _id: personID })
     .then(person => {
@@ -87,19 +87,20 @@ app.delete('/api/persons/:id', (request, response) => {
         response.status(404).end()
       }
     })
+    .catch(error => next(error))
 })
 
-const generateID = () => {
-  return Math.floor(Math.random() * 1000000)
-}
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
   const newPersonDetails = request.body
+  console.log(newPersonDetails)
 
   if (!newPersonDetails.name || !newPersonDetails.number) {
-    return response.status(400).json({
-      error: 'content missing'
-    })
+    const error = new Error('Person name or number is missing');
+    error.status = 400;
+    error.name = 'ValidationError';
+
+    return next(error)
   }
 
   Person
@@ -121,11 +122,24 @@ app.post('/api/persons', (request, response) => {
         })
       }
     })
-    .catch(error => {
-      console.log("Something went wrong: ", error.message)
-      response.status(500).end()
-    })
+    .catch(error => next(error))
 })
+
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message)
+
+  if (error.name === "CastError") {
+    return response.status(400).send({ error: 'malformed id '})
+  } 
+  
+  if (error.name === "ValidationError") {
+    return response.status(error.status).json({ error: error.message })
+  }
+
+  return response.status(500).json({ error: 'something went wrong' })
+}
+
+app.use(errorHandler)
 
 const PORT = 3001
 
