@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const Person = require('./models/person')
+const person = require('./models/person')
 
 const app = express()
 
@@ -113,6 +114,47 @@ app.post('/api/persons', (request, response, next) => {
     response.status(200).end()
   })
 
+})
+
+app.put('/api/persons/:id', (request, response, next) => {
+  const { number } = request.body
+  
+  Person
+    .findByIdAndUpdate(
+      request.params.id,
+      { number },
+      {
+        new: true, runValidators: true, context: 'query'
+      }
+    )
+    .then(personFound => {
+      if (personFound) {
+        response.status(204).json(personFound)
+      } else {
+        response.status(404).json({ error: 'Person not found' })
+      }
+    })
+    .catch(error => next(error))
+
+    /*
+  Method two:
+  Person
+    .find({ _id: request.params.id })
+    .then(person => {
+      if (!person) {
+        response.status(404).json({ error: 'Person not found'} )
+      }
+      
+      person.number = number
+      return person.save()
+    })
+    .then(savedPerson => {
+      if (savedPerson) {
+        response.json(savedPerson)
+      }
+    })
+    .catch(error => next(error))
+  */
 })
 
 const errorHandler = (error, request, response, next) => {
