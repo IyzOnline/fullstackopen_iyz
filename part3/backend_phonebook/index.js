@@ -150,7 +150,7 @@ app.put('/api/persons/:id', (request, response, next) => {
     })
     .then(savedPerson => {
       if (savedPerson) {
-        response.json(savedPerson)
+        response.status(200).json(savedPerson)
       }
     })
     .catch(error => next(error))
