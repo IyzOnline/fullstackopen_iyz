@@ -115,10 +115,12 @@ app.post('/api/persons', (request, response, next) => {
     number: newPersonDetails.number,
   })
 
-  newPerson.save().then(savedPerson => {
-    console.log(savedPerson)
-    response.status(200).end()
-  })
+  newPerson.save()
+    .then(savedPerson => {
+      console.log(savedPerson)
+      response.status(200).json(savedPerson)
+    })
+    .catch(error => next(error))
 
 })
 
