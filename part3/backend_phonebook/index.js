@@ -76,11 +76,17 @@ app.get('/api/persons/:id', (request, response) => {
 })
 
 app.delete('/api/persons/:id', (request, response) => {
-  const newPersonsList = persons.filter(person => person.id !== request.params.id)
-  console.log(newPersonsList)
-  persons = newPersonsList
-
-  response.status(204).end()
+  const personID = request.params.id
+  Person.findOneAndDelete({ _id: personID })
+    .then(person => {
+      if (person) {
+        console.log(`Deletion successful of ${person.name} was successful.`)
+        response.status(204).end()
+      } else {
+        console.log("No person found for deletion.")
+        response.status(404).end()
+      }
+    })
 })
 
 const generateID = () => {
