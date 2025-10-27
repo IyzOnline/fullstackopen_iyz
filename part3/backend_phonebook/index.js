@@ -103,26 +103,16 @@ app.post('/api/persons', (request, response, next) => {
     return next(error)
   }
 
-  Person
-    .findOne({ name: newPersonDetails.name })
-    .then(person => {
-      if (person) {
-        return response.status(409).json({
-          error: 'This name is already in use.'
-        })
-      } else {
-        const newPerson = new Person({
-          name: newPersonDetails.name,
-          number: newPersonDetails.number,
-        })
+  const newPerson = new Person({
+    name: newPersonDetails.name,
+    number: newPersonDetails.number,
+  })
 
-        newPerson.save().then(savedPerson => {
-          console.log(savedPerson)
-          response.status(200).end()
-        })
-      }
-    })
-    .catch(error => next(error))
+  newPerson.save().then(savedPerson => {
+    console.log(savedPerson)
+    response.status(200).end()
+  })
+
 })
 
 const errorHandler = (error, request, response, next) => {
@@ -141,6 +131,6 @@ const errorHandler = (error, request, response, next) => {
 
 app.use(errorHandler)
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 
 app.listen(PORT, () => console.log(`Server is running on Port ${PORT}`))
