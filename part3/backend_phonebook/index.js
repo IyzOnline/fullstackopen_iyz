@@ -48,11 +48,11 @@ app.use((request, response, next) => {
   
 app.get('/api/persons', (request, response) => {
   Person.find({})
-    .then(persons => {
-      if (!persons) {
+    .then(personsFound => {
+      if (!personsFound) {
         response.status(404).end()
       } 
-      response.json(persons)
+      response.status(200).json(personsFound)
     })
     .catch(error => {
       console.log('Failed to obtain data from database: ', error.message)
@@ -60,20 +60,26 @@ app.get('/api/persons', (request, response) => {
     })
 })
 
-app.get('/info', (request, response) => {
-  const firstLine = `<p>Phonebook has info for ${persons.length} people</p>`
-  const presentDate = new Date()
-  const secondLine = `<p>${presentDate}</p>`
-  response.send(firstLine + secondLine)
+app.get('/info', (request, response, next) => {
+  Person.find({})
+    .then(personsFound => {
+      const firstLine = `<p>Phonebook has info for ${persons.length ? persons.length : 0} people </p>`
+      const presentDate = new Date()
+      const secondLine = `<p>${presentDate}</p>`
+      response.status(200).send(firstLine + secondLine)
+    })
+    .catch(error => next(error))
 })
 
 app.get('/api/persons/:id', (request, response) => {
-  const person = persons.find(person => person.id === request.params.id)
-  if (person) {
-    response.json(person)
-  } else {
-    response.status(404).end()
-  }
+  Person.findById(request.params.id)
+    .then(personFound => {
+      if (!personFound) {
+        response.status(404).end()
+      }
+
+      response.status(200).json(personFound)
+    })
 })
 
 app.delete('/api/persons/:id', (request, response, next) => {
