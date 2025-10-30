@@ -56,6 +56,16 @@ const PersonForm = ({ setMessage, createPerson, updatePerson, persons, setPerson
                     setMessage(null)
                 }, 5000)
             })
+            .catch(error => {
+                console.log(error)
+                setMessage({
+                    message: error.response.data.error,
+                    messageType: "error"
+                })
+                setInterval(() => {
+                    setMessage(null)
+                }, 5000)
+            })
     }
     
     return (
