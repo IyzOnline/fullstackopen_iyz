@@ -107,7 +107,9 @@ app.put('/api/persons/:id', (request, response, next) => {
       request.params.id,
       { number },
       {
-        new: true, runValidators: true, context: 'query'
+        new: true, 
+        runValidators: true, 
+        context: 'query'
       }
     )
     .then(personFound => {
