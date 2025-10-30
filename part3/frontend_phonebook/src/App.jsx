@@ -32,7 +32,7 @@ const App = () => {
 
             <h2>Numbers</h2>
 
-            <Persons deletePerson={personService.deletePerson} persons={persons} setPersons={setPersons} filterName={filterName}/>
+            <Persons setMessage={setMessageObj} deletePerson={personService.deletePerson} persons={persons} setPersons={setPersons} filterName={filterName}/>
         </div>
     )
 }
