@@ -118,26 +118,6 @@ app.put('/api/persons/:id', (request, response, next) => {
       }
     })
     .catch(error => next(error))
-
-    /*
-  Method two:
-  Person
-    .find({ _id: request.params.id })
-    .then(person => {
-      if (!person) {
-        response.status(404).json({ error: 'Person not found'} )
-      }
-      
-      person.number = number
-      return person.save()
-    })
-    .then(savedPerson => {
-      if (savedPerson) {
-        response.status(200).json(savedPerson)
-      }
-    })
-    .catch(error => next(error))
-  */
 })
 
 const errorHandler = (error, request, response, next) => {
