@@ -8,7 +8,7 @@ export default [
     files: ['**/*.js'],
     languageOptions: {
       sourceType: 'commonjs',
-      globals: { ...global.node },
+      globals: { ...globals.node },
       ecmaVersion: 'latest',
     },
     plugins: {
@@ -20,5 +20,8 @@ export default [
       '@stylistic/js/quotes': ['error', 'single'],
       '@stylistic/js/semi': ['error', 'never'],
     }
+  },
+  {
+    ignores: ['dist/**'],
   }
 ]
