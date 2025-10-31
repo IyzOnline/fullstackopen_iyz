@@ -26,6 +26,12 @@ export default defineConfig([
       '@stylistic/brace-style': ['error', '1tbs'],
       'eqeqeq': 'error',
       'no-console': 'off',
+      'no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+        },
+      ],
     },
   },
   {
