@@ -23,6 +23,7 @@ export default defineConfig([
     },
     rules: {
       '@stylistic/js/linebreak-style': ['error', 'unix'],
+      '@stylistic/brace-style': ['error', '1tbs'],
       'eqeqeq': 'error',
       'no-console': 'off',
     },
