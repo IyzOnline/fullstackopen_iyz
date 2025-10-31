@@ -2,35 +2,34 @@ require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const Person = require('./models/person')
-const person = require('./models/person')
 
 const app = express()
 
 app.use(express.static('dist'))
 app.use(express.json())
 
-morgan.token('body', (request) => JSON.stringify(request.body))
+morgan.token('body', request => JSON.stringify(request.body))
 
 const postMorganHandler = morgan(':method :url :status : res[content-length] - :response-time ms :body')
 const defaultMorganHandler = morgan(':method :url :status : res[content-length] - :response-time ms')
 
 app.use((request, response, next) => {
-  if (request.method === "POST") {
+  if (request.method === 'POST') {
     postMorganHandler(request, response, next)
   } else {
     defaultMorganHandler(request, response, next)
   }
 })
-  
+
 app.get('/api/persons', (request, response) => {
   Person.find({})
-    .then(personsFound => {
+    .then((personsFound) => {
       if (!personsFound) {
         response.status(404).end()
-      } 
+      }
       response.status(200).json(personsFound)
     })
-    .catch(error => {
+    .catch((error) => {
       console.log('Failed to obtain data from database: ', error.message)
       response.status(500).end()
     })
@@ -38,8 +37,8 @@ app.get('/api/persons', (request, response) => {
 
 app.get('/info', (request, response, next) => {
   Person.find({})
-    .then(personsFound => {
-      const firstLine = `<p>Phonebook has info for ${persons.length ? persons.length : 0} people </p>`
+    .then((personsFound) => {
+      const firstLine = `<p>Phonebook has info for ${personsFound.length ? personsFound.length : 0} people </p>`
       const presentDate = new Date()
       const secondLine = `<p>${presentDate}</p>`
       response.status(200).send(firstLine + secondLine)
@@ -49,7 +48,7 @@ app.get('/info', (request, response, next) => {
 
 app.get('/api/persons/:id', (request, response) => {
   Person.findById(request.params.id)
-    .then(personFound => {
+    .then((personFound) => {
       if (!personFound) {
         response.status(404).end()
       }
@@ -61,26 +60,25 @@ app.get('/api/persons/:id', (request, response) => {
 app.delete('/api/persons/:id', (request, response, next) => {
   const personID = request.params.id
   Person.findOneAndDelete({ _id: personID })
-    .then(person => {
+    .then((person) => {
       if (person) {
         console.log(`Deletion successful of ${person.name} was successful.`)
         response.status(204).end()
       } else {
-        console.log("No person found for deletion.")
+        console.log('No person found for deletion.')
         response.status(404).end()
       }
     })
     .catch(error => next(error))
 })
 
-
 app.post('/api/persons', (request, response, next) => {
   const newPersonDetails = request.body
   console.log(newPersonDetails)
 
   if (!newPersonDetails.name || !newPersonDetails.number) {
-    const error = new Error('Person name or number is missing');
-    error.name = 'ValidationError';
+    const error = new Error('Person name or number is missing')
+    error.name = 'ValidationError'
 
     return next(error)
   }
@@ -91,28 +89,27 @@ app.post('/api/persons', (request, response, next) => {
   })
 
   newPerson.save()
-    .then(savedPerson => {
+    .then((savedPerson) => {
       console.log(savedPerson)
       response.status(200).json(savedPerson)
     })
     .catch(error => next(error))
-
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
   const { number } = request.body
-  
+
   Person
     .findByIdAndUpdate(
       request.params.id,
       { number },
       {
-        new: true, 
-        runValidators: true, 
-        context: 'query'
-      }
+        new: true,
+        runValidators: true,
+        context: 'query',
+      },
     )
-    .then(personFound => {
+    .then((personFound) => {
       if (personFound) {
         response.status(200).json(personFound)
       } else {
@@ -122,16 +119,16 @@ app.put('/api/persons/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-const errorHandler = (error, request, response, next) => {
+const errorHandler = (error, request, response, _next) => {
   console.error(error)
 
-  if (error.name === "CastError") {
-    return response.status(400).send({ error: 'malformed id '})
-  } else if (error.name === "ValidationError") {
+  if (error.name === 'CastError') {
+    return response.status(400).send({ error: 'malformed id' })
+  } else if (error.name === 'ValidationError') {
     return response.status(400).json({ error: error.message })
   }
 
-  return response.status(500).json({ error: error.message || "something went wrong"})
+  return response.status(500).json({ error: error.message || 'something went wrong' })
 }
 
 app.use(errorHandler)
