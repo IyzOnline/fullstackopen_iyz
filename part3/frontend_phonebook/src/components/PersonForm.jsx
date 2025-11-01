@@ -41,7 +41,6 @@ const PersonForm = ({ setMessage, createPerson, updatePerson, persons, setPerson
                             setInterval(() => {
                                 setMessage(null)
                             }, 5000)
-                            setPersons(persons.map(person => person.name === editedPerson.name ? editedPerson : person))
                             setNewName('')
                             setNewNumber('')
                         })
