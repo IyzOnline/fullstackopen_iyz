@@ -83,17 +83,28 @@ app.post('/api/persons', (request, response, next) => {
     return next(error)
   }
 
-  const newPerson = new Person({
-    name: newPersonDetails.name,
-    number: newPersonDetails.number,
-  })
+  Person.findOne({ name: newPersonDetails.name })
+    .then((person) => {
+      console.log('Returned person', person)
+      if (person) {
+        const error = new Error(`${person.name} already exists in the database!`)
+        error.name = 'Validation Error'
 
-  newPerson.save()
-    .then((savedPerson) => {
-      console.log(savedPerson)
-      response.status(200).json(savedPerson)
+        return next(error)
+      }
+
+      const newPerson = new Person({
+        name: newPersonDetails.name,
+        number: newPersonDetails.number,
+      })
+
+      newPerson.save()
+        .then((savedPerson) => {
+          console.log(savedPerson)
+          response.status(200).json(savedPerson)
+        })
+        .catch(error => next(error))
     })
-    .catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
