@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+    "title": "DeluxeHamburer2",
+    "author": "VAS2",
+    "url": "erm.com2",
+    "likes": 3699
+}
