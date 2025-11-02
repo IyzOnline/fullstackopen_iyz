@@ -24,7 +24,7 @@ const listWithTenBlogs = [
       title: 'TDD is dead. Long live testing.',
       author: 'David Heinemeier Hansson',
       url: 'http://david.heinemeierhansson.com/2014/tdd-is-dead-long-live-testing.html',
-      likes: 10,
+      likes: 33,
       __v: 0
     },
     {
@@ -109,7 +109,7 @@ describe('total likes', () => {
   })
 
   test('when list has ten blogs, equal the likes of that', () => {
-    assert.strictEqual(listHelper.totalLikes(listWithTenBlogs), 106)
+    assert.strictEqual(listHelper.totalLikes(listWithTenBlogs), 129)
   })
 
   test('when list has ten blogs, equal the likes of that', () => {
@@ -123,7 +123,7 @@ describe('favorite blog', () => {
   })
 
   test('find favorite blog - 10 blogs', () => {
-    assert.deepStrictEqual(listHelper.favoriteBlog(listWithTenBlogs), listWithTenBlogs[7])
+    assert.deepStrictEqual(listHelper.favoriteBlog(listWithTenBlogs), listWithTenBlogs[2])
   })
 
   test('find favorite blog - no blogs', () => {
@@ -142,5 +142,19 @@ describe('most blogs', () => {
 
   test('find author w/ most blogs - no blogs', () => {
     assert.strictEqual(listHelper.mostBlogs(listWithNoBlogs), null)
+  })
+})
+
+describe('most likes', () => {
+  test('find author with most likes if 1 blog', () => {
+    assert.strictEqual(listHelper.mostLikesAuthor(listWithOneBlog), 'Edsger W. Dijkstra')
+  })
+
+  test('find author with most likes if 10 blogs', () => {
+    assert.strictEqual(listHelper.mostLikesAuthor(listWithTenBlogs), 'David Heinemeier Hansson')
+  })
+
+  test('find author with most likes if no blogs', () => {
+    assert.strictEqual(listHelper.mostLikesAuthor(listWithNoBlogs), null)
   })
 })
