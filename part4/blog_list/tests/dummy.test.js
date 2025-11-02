@@ -130,3 +130,17 @@ describe('favorite blog', () => {
     assert.strictEqual(listHelper.favoriteBlog(listWithNoBlogs), null)
   })
 })
+
+describe('author with most blogs', () => {
+  test('find author with most blogs if there is only blog', () => {
+    assert.strictEqual(listHelper.mostBlogs(listWithOneBlog), 'Edsger W. Dijkstra')
+  })
+
+  test('find author with most blogs if there are ten blogs', () => {
+    assert.strictEqual(listHelper.mostBlogs(listWithTenBlogs), 'Robert C. Martin')
+  })
+
+  test('find author with most blogs if there are no blogs', () => {
+    assert.strictEqual(listHelper.mostBlogs(listWithNoBlogs), null)
+  })
+})
