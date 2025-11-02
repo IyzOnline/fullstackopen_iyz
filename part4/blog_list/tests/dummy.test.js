@@ -118,29 +118,29 @@ describe('total likes', () => {
 })
 
 describe('favorite blog', () => {
-  test('find favorite blog if there is only blog', () => {
+  test('find favorite blog - 1 blog', () => {
     assert.deepStrictEqual(listHelper.favoriteBlog(listWithOneBlog), listWithOneBlog[0])
   })
 
-  test('find favorite blog if there are ten blogs', () => {
+  test('find favorite blog - 10 blogs', () => {
     assert.deepStrictEqual(listHelper.favoriteBlog(listWithTenBlogs), listWithTenBlogs[7])
   })
 
-  test('find favorite blog if there are no blogs', () => {
+  test('find favorite blog - no blogs', () => {
     assert.strictEqual(listHelper.favoriteBlog(listWithNoBlogs), null)
   })
 })
 
-describe('author with most blogs', () => {
-  test('find author with most blogs if there is only blog', () => {
+describe('most blogs', () => {
+  test('find author w/ most blogs - 1 blog', () => {
     assert.strictEqual(listHelper.mostBlogs(listWithOneBlog), 'Edsger W. Dijkstra')
   })
 
-  test('find author with most blogs if there are ten blogs', () => {
+  test('find author w/ most blogs - 10 blogs', () => {
     assert.strictEqual(listHelper.mostBlogs(listWithTenBlogs), 'Robert C. Martin')
   })
 
-  test('find author with most blogs if there are no blogs', () => {
+  test('find author w/ most blogs - no blogs', () => {
     assert.strictEqual(listHelper.mostBlogs(listWithNoBlogs), null)
   })
 })
