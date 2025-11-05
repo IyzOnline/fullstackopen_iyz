@@ -52,6 +52,20 @@ test('missing title should not be allowed', async () => {
     .expect(400)
 })
 
+test('missing url should not be allowed', async () => {
+  const newBlog = {
+    title: "Blue Gem Karambit",
+    author: "Ohnepixel",
+    likes: 387,
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+})
+
+
 after(async () => {
   await mongoose.connection.close()
 })
