@@ -8,6 +8,11 @@ const elpers = require('./test_helper')
 
 api = supertest(app)
 
+beforeEach(async () => {
+  await Blog.deleteMany({})
+  await Blog.insertMany(elpers.blogsForTesting)
+})
+
 test('blogs are returned as json', async () => {
   const res = await api
     .get('/api/blogs')
@@ -18,8 +23,6 @@ test('blogs are returned as json', async () => {
 })
 
 test('valid blogs can be added', async () => {
-  const currentBlogList = await elpers.getAllFromDB()
-  
   const newBlog = {
     title: "Blue Gem Karambit",
     author: "Ohnepixel",
@@ -35,7 +38,7 @@ test('valid blogs can be added', async () => {
 
   const updatedBlogList = await elpers.getAllFromDB()
 
-  assert.strictEqual(updatedBlogList.length, currentBlogList.length + 1)  
+  assert.strictEqual(updatedBlogList.length, elpers.blogsForTesting.length + 1)  
 })
 
 after(async () => {
