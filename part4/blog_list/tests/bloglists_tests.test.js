@@ -18,8 +18,6 @@ test('blogs are returned as json', async () => {
     .get('/api/blogs')
     .expect(200)
     .expect('Content-Type', /application\/json/)
-
-  console.log(res.body)
 })
 
 test('valid blogs can be added', async () => {
@@ -39,6 +37,19 @@ test('valid blogs can be added', async () => {
   const updatedBlogList = await elpers.getAllFromDB()
 
   assert.strictEqual(updatedBlogList.length, elpers.blogsForTesting.length + 1)  
+})
+
+test('missing title should not be allowed', async () => {
+  const newBlog = {
+    author: "Ohnepixel",
+    url: "https://www.youtube.com/@ohnepixel",
+    likes: 387,
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
 })
 
 after(async () => {
