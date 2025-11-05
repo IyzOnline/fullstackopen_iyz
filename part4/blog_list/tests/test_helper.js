@@ -96,9 +96,12 @@ const listWithOneBlog = [
 
 const listWithNoBlogs = []
 
-const getAllFromDB = Blog.find({})
+const getAllFromDB = async () => {
+  const blogs = await Blog.find({})
+  return blogs.map(blog => blog.toJSON())
+}
 
-module.export = {
+module.exports = {
   listWithNoBlogs,
   listWithOneBlog,
   listWithTenBlogs,
