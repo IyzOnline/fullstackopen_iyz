@@ -1,5 +1,5 @@
 const app = require('../app')
-const { test, after } = require('node:test')
+const { test, after, beforeEach } = require('node:test')
 const assert = require('node:assert')
 const mongoose = require('mongoose')
 const supertest = require('supertest')
@@ -13,17 +13,19 @@ test('blogs are returned as json', async () => {
     .get('/api/blogs')
     .expect(200)
     .expect('Content-Type', /application\/json/)
+
+  console.log(res.body)
 })
 
 test('valid blogs can be added', async () => {
   const currentBlogList = await elpers.getAllFromDB()
   
-  const newBlog = new Blog({
+  const newBlog = {
     title: "Blue Gem Karambit",
     author: "Ohnepixel",
     url: "https://www.youtube.com/@ohnepixel",
     likes: 387,
-  })
+  }
 
   await api
     .post('/api/blogs')
