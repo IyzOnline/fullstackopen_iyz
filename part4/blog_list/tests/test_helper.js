@@ -101,9 +101,27 @@ const getAllFromDB = async () => {
   return blogs.map(blog => blog.toJSON())
 }
 
+const blogsForTesting = [
+  {
+    title: 'DeluxeHamburer',
+    author: 'VAS',
+    url: 'erm.com',
+    likes: 369,
+    id: '69061e53556f2ad6d8c18d54'
+  },
+  {
+    title: 'DeluxeHamburer2',
+    author: 'VAS2',
+    url: 'erm.com2',
+    likes: 3699,
+    id: '69061e607b2fa5fc700041c0'
+  }
+]
+
 module.exports = {
   listWithNoBlogs,
   listWithOneBlog,
   listWithTenBlogs,
   getAllFromDB,
+  blogsForTesting,
 }
