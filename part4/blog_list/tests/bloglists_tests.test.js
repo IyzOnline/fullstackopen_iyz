@@ -1,5 +1,5 @@
 const app = require('../app')
-const { test, after, beforeEach } = require('node:test')
+const { test, after, beforeEach, describe } = require('node:test')
 const assert = require('node:assert')
 const mongoose = require('mongoose')
 const supertest = require('supertest')
@@ -39,7 +39,8 @@ test('valid blogs can be added', async () => {
   assert.strictEqual(updatedBlogList.length, elpers.blogsForTesting.length + 1)  
 })
 
-test('missing title should not be allowed', async () => {
+describe('test missing fields', () => {
+  test('missing title should not be allowed', async () => {
   const newBlog = {
     author: "Ohnepixel",
     url: "https://www.youtube.com/@ohnepixel",
@@ -50,21 +51,21 @@ test('missing title should not be allowed', async () => {
     .post('/api/blogs')
     .send(newBlog)
     .expect(400)
+  })
+
+  test('missing url should not be allowed', async () => {
+    const newBlog = {
+      title: "Blue Gem Karambit",
+      author: "Ohnepixel",
+      likes: 387,
+    }
+
+    await api
+      .post('/api/blogs')
+      .send(newBlog)
+      .expect(400)
+  })
 })
-
-test('missing url should not be allowed', async () => {
-  const newBlog = {
-    title: "Blue Gem Karambit",
-    author: "Ohnepixel",
-    likes: 387,
-  }
-
-  await api
-    .post('/api/blogs')
-    .send(newBlog)
-    .expect(400)
-})
-
 
 after(async () => {
   await mongoose.connection.close()
