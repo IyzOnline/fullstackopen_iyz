@@ -1,4 +1,5 @@
 const app = require('../app')
+const { test, after } = require('node:test') 
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const Blog = require('../models/blog')
@@ -6,6 +7,13 @@ const { listWithNoBlogs, listWithOneBlog, listWithTenBlogs } = require('./test_h
 
 api = supertest(app)
 
-describe('get requests', () => {
-  
+test('get blogs deluxe hehe', async () => {
+  await api
+    .get('/api/blogs')
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+})
+
+after(async () => {
+  await mongoose.connection.close()
 })
