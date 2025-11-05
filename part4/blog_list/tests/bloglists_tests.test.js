@@ -7,7 +7,7 @@ const { listWithNoBlogs, listWithOneBlog, listWithTenBlogs } = require('./test_h
 
 api = supertest(app)
 
-test('get blogs deluxe hehe', async () => {
+test('notes are returned as json', async () => {
   await api
     .get('/api/blogs')
     .expect(200)
