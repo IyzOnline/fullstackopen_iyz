@@ -8,10 +8,12 @@ const { listWithNoBlogs, listWithOneBlog, listWithTenBlogs } = require('./test_h
 api = supertest(app)
 
 test('notes are returned as json', async () => {
-  await api
+  const res = await api
     .get('/api/blogs')
     .expect(200)
     .expect('Content-Type', /application\/json/)
+
+  console.log(res.body)
 })
 
 after(async () => {
