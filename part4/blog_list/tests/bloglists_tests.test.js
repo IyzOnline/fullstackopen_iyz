@@ -14,7 +14,7 @@ beforeEach(async () => {
 })
 
 test('blogs are returned as json', async () => {
-  const res = await api
+  await api
     .get('/api/blogs')
     .expect(200)
     .expect('Content-Type', /application\/json/)
@@ -65,6 +65,20 @@ describe('test missing fields', () => {
       .send(newBlog)
       .expect(400)
   })
+})
+
+test('blog is deleted with status code 204', async () => {
+    const initialBlogs = await elpers.getAllFromDB()
+    const blogToDel = initialBlogs[0]
+
+    await api
+      .delete(`/api/blogs/${blogToDel.id}`)
+      .expect(204)
+
+    const resultingBlogs = await elpers.getAllFromDB()
+    assert(!resultingBlogs.includes(blogToDel.title))
+
+    assert.strictEqual(resultingBlogs.length, elpers.blogsForTesting.length - 1)
 })
 
 after(async () => {
