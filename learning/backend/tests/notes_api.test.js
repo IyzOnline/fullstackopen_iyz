@@ -76,11 +76,14 @@ test('a note can be deleted', async () => {
     .delete(`/api/notes/${noteToDelete.id}`)
     .expect(204)
 
+  //getting all notes once more
   const notesAtEnd = await helper.notesInDb()
 
+  //checking if content of deleted note is truly removed.
   const contents = notesAtEnd.map(n => n.content)
   assert(!contents.includes(noteToDelete.content))
 
+  //checking if length of array is decreased by one as expected.
   assert.strictEqual(notesAtEnd.length, helper.initialNotes.length - 1)
 })
 
